@@ -1,21 +1,29 @@
 import { useEffect, type PropsWithChildren } from "react";
 import { MobileDeviceProvider, useMobileDevice } from "./Device";
 import { KeyboardDock, KeyboardProvider, useKeyboard } from "./Keyboard";
-import { PhoneFrame } from "./PhoneFrame";
+import { FullPageFrame, PhoneFrame } from "./PhoneFrame";
 import { HomeIndicator, StatusBar } from "./components";
 
-export function MobileRuntime({ children }: PropsWithChildren) {
+export function MobileRuntime({ children, fullPage = false }: PropsWithChildren<{ fullPage?: boolean }>) {
   return (
     <MobileDeviceProvider>
-      <PhoneFrame>
-        <KeyboardProvider>
-          <KeyboardPreview />
-          <StatusBar />
-          <MobileAppViewport>{children}</MobileAppViewport>
-          <HomeIndicator />
-          <KeyboardDock />
-        </KeyboardProvider>
-      </PhoneFrame>
+      {fullPage ? (
+        <FullPageFrame>
+          <KeyboardProvider simulate={false}>
+            <MobileAppViewport>{children}</MobileAppViewport>
+          </KeyboardProvider>
+        </FullPageFrame>
+      ) : (
+        <PhoneFrame>
+          <KeyboardProvider>
+            <KeyboardPreview />
+            <StatusBar />
+            <MobileAppViewport>{children}</MobileAppViewport>
+            <HomeIndicator />
+            <KeyboardDock />
+          </KeyboardProvider>
+        </PhoneFrame>
+      )}
     </MobileDeviceProvider>
   );
 }

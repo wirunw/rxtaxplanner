@@ -41,7 +41,7 @@ export default function Prototype() {
   const save=()=>{if(!draft.label.trim()||draft.monthly<=0)return;setIncome(prev=>editId==="new"?[...prev,draft]:prev.map(x=>x.id===draft.id?draft:x));keyboard.hide();setEditId(null);};
 
   return <>
-    <MobileScroll key={page} className="planner-scroll"><main className="planner" data-testid="planner-screen">
+    <MobileScroll key={page} className="planner-scroll"><main className={`planner planner--${page}`} data-testid="planner-screen">
       {page==="income"&&<>
         <header className="income-head"><img className="brand-art" src="/assets/planner/mortar-books.png" alt="ครกยา ใบไม้ และหนังสือ" draggable={false}/><h1>รายได้ของฉัน</h1><p>รวมรายได้ทุกทางไว้ที่เดียว</p><time>27 กันยายน 2026</time></header>
         <section className="income-list" aria-label="รายได้ทั้งหมด">{income.length?income.map((x,i)=>{const Icon=icons[x.kind];return <button key={x.id} className="income-row" onClick={()=>openEdit(x)} aria-label={`แก้ไข ${x.label}`}><span className={`income-icon tone-${i%3}`}><Icon width={24} height={24}/></span><span className="income-name"><strong>{x.label}</strong><small>{x.kind==="salary"?"รายได้ประจำ":x.kind==="shift"?"รายได้จากการทำงานพิเศษ":"รายได้จากความเชี่ยวชาญ"}</small></span><span className="income-amount"><strong>{baht(x.monthly)}</strong><small>/ เดือน</small></span><ChevronRightIcon className="row-arrow"/></button>;}):<p className="empty-state">ยังไม่มีรายได้ เพิ่มรายการแรกได้เลย</p>}</section>

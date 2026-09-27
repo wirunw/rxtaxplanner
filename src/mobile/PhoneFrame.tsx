@@ -37,6 +37,22 @@ export function useScreenPortal() {
   return context;
 }
 
+/** A browser-sized surface with the same portal contract as PhoneFrame. */
+export function FullPageFrame({ children }: PropsWithChildren) {
+  const screenRef = useRef<HTMLDivElement | null>(null);
+  const contextValue = useMemo(() => ({ screenRef }), []);
+
+  return (
+    <ScreenPortalContext.Provider value={contextValue}>
+      <div className="full-page-stage">
+        <div ref={screenRef} className="full-page-screen" data-testid="device-screen">
+          {children}
+        </div>
+      </div>
+    </ScreenPortalContext.Provider>
+  );
+}
+
 function getDeviceScale(deviceWidth: number, deviceHeight: number) {
   if (typeof window === "undefined") return 1;
 

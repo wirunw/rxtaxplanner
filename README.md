@@ -4,6 +4,8 @@
 
 ## วิธีทดลอง
 
+แอปเปิดเป็นเว็บเต็มหน้าบนคอมพิวเตอร์และมือถือโดยอัตโนมัติ หากต้องการดูตัวอย่างในกรอบโทรศัพท์แบบเดิม ให้เติม `?preview=phone` ที่ท้ายลิงก์
+
 1. หน้า **รายได้ของฉัน**: กดรายการเพื่อแก้ไข หรือกดเพิ่มรายได้ แล้วเปิด “ดูที่มาของตัวเลข”
 2. หน้า **ภาษี**: เห็นตัวอย่างเฉพาะรายได้เงินเดือน รายได้ชนิดอื่นติดป้ายว่าต้องตรวจประเภทก่อนรวมคำนวณ
 3. หน้า **ร้านยา**: เปลี่ยนยอดขาย ต้นทุนสินค้า และค่าใช้จ่าย แล้วสังเกตกำไรก่อนภาษี
@@ -22,6 +24,14 @@
 
 ## พัฒนาและรัน
 
-ใช้ Node.js, `npm ci`, แล้ว `npm run dev -- --host 0.0.0.0 --port 4173 --strictPort`; ตรวจด้วย `npm run check:runtime` และ `npm run build`. คอมโพเนนต์แอปอยู่ใน `src/Prototype.tsx`, สไตล์ใน `src/prototype.css`, สูตรตัวอย่างแยกใน `src/taxEngine.ts`. ไฟล์ runtime ของ mobile template คงเดิม
+ใช้ Node.js, `npm ci`, แล้ว `npm run dev -- --host 0.0.0.0 --port 4173 --strictPort`; ตรวจด้วย `npm run check:runtime` และ `npm run build`. คอมโพเนนต์แอปอยู่ใน `src/Prototype.tsx`, สไตล์ใน `src/prototype.css`, สูตรตัวอย่างแยกใน `src/taxEngine.ts`. โหมดเต็มหน้าอยู่ใน `src/mobile/MobileRuntime.tsx` และ `src/mobile/PhoneFrame.tsx`
+
+## เปิดผ่านลิงก์ของตัวเอง
+
+เชื่อม repository นี้กับ **Netlify** โดยเลือก Import an existing project แล้วกด Deploy ได้เลย: `netlify.toml` ตั้งคำสั่ง build เป็น `npm run build` และ publish directory เป็น `dist/client` ไว้แล้ว ทุกครั้งที่ push โค้ดขึ้น branch หลัก Netlify จะ build และเผยแพร่เวอร์ชันใหม่
+
+หากใช้ **Vercel** ให้ import repository แล้วเลือก Framework Preset เป็น Vite; `vercel.json` กำหนด Build Command เป็น `npx tsc && npx vite build` และ Output Directory เป็น `dist/client` ไว้แล้ว เพื่อให้ build ได้โดยไม่ต้องพึ่งไฟล์ตั้งค่าของ Sites
+
+โปรเจกต์นี้อ้างอิง assets จาก root URL (`/assets/...`) จึงยังไม่รองรับ GitHub Pages แบบ `https://username.github.io/rxtaxplanner/` โดยตรง ต้องปรับ base path และ public asset URL ก่อนใช้ Pages ใน path ย่อย
 
 แหล่งอ้างอิงเชิงแนวคิด: เอกสาร [การวางแผนภาษีสำหรับเภสัชกรและเจ้าของร้านยา](https://docs.google.com/document/d/1VpnW0w-eOw453jbhIjIBzLE8xZueo93oJ4dj0AT1HNM/edit), กรมสรรพากร [บัญชีอัตราภาษี](https://www.rd.go.th/5938.html) และ [SME](https://www.rd.go.th/841.html). ตรวจหลักเกณฑ์ล่าสุดและเงื่อนไขรายกรณีก่อนพัฒนาระบบสำหรับใช้งานจริง
