@@ -24,12 +24,4 @@
 
 ใช้ Node.js, `npm ci`, แล้ว `npm run dev -- --host 0.0.0.0 --port 4173 --strictPort`; ตรวจด้วย `npm run check:runtime` และ `npm run build`. คอมโพเนนต์แอปอยู่ใน `src/Prototype.tsx`, สไตล์ใน `src/prototype.css`, สูตรตัวอย่างแยกใน `src/taxEngine.ts`. ไฟล์ runtime ของ mobile template คงเดิม
 
-## เปิดผ่านลิงก์ของตัวเอง
-
-เชื่อม repository นี้กับ **Netlify** โดยเลือก Import an existing project แล้วกด Deploy ได้เลย: `netlify.toml` ตั้งคำสั่ง build เป็น `npm run build` และ publish directory เป็น `dist/client` ไว้แล้ว ทุกครั้งที่ push โค้ดขึ้น branch หลัก Netlify จะ build และเผยแพร่เวอร์ชันใหม่
-
-หากใช้ **Vercel** ให้ import repository แล้วเลือก Framework Preset เป็น Vite; ตั้ง Build Command เป็น `npm run build` และ Output Directory เป็น `dist/client` (กำหนดใน `vercel.json` ไว้แล้ว)
-
-โปรเจกต์นี้อ้างอิง assets จาก root URL (`/assets/...`) จึงยังไม่รองรับ GitHub Pages แบบ `https://username.github.io/rxtaxplanner/` โดยตรง ต้องปรับ base path และ public asset URL ก่อนใช้ Pages ใน path ย่อย
-
 แหล่งอ้างอิงเชิงแนวคิด: เอกสาร [การวางแผนภาษีสำหรับเภสัชกรและเจ้าของร้านยา](https://docs.google.com/document/d/1VpnW0w-eOw453jbhIjIBzLE8xZueo93oJ4dj0AT1HNM/edit), กรมสรรพากร [บัญชีอัตราภาษี](https://www.rd.go.th/5938.html) และ [SME](https://www.rd.go.th/841.html). ตรวจหลักเกณฑ์ล่าสุดและเงื่อนไขรายกรณีก่อนพัฒนาระบบสำหรับใช้งานจริง
